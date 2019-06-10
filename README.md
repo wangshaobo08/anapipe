@@ -1,7 +1,7 @@
-program: fusepipe  
+program: anapipe  
 version: 0.0.0  
 updated: 15:28:35 Jun  4 2019  
-Usage: fusepipe [OPTIONS]  
+Usage: anapipe [OPTIONS]  
 
 |  Options                    | Explanations
 |-----------------------------|---------------------------------
@@ -34,7 +34,7 @@ Installation
 `make install`  
 
 3. execute  
-`/path/to/install/dir/bin/fusepipe`  
+`/path/to/install/dir/bin/anapipe`  
 
 PS  
 this is a sjm based fusion pipeline  
