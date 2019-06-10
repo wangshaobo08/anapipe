@@ -88,7 +88,7 @@ void GenJob::genAlignJob(Job* j){
     j->cmd.second += " -o " + j->workdir.second + j->pre + ".aln.sort.bam";
     j->cmd.second += " && " + mOpt->ioOpt.bin_dir + "/samtools index ";
     j->cmd.second += j->workdir.second + j->pre + ".aln.sort.bam";
-    j->memory.second = "16g";
+    j->memory.second = "8g";
     j->slots.second = "8";
     j->sopt.second.append(" -l p=" + j->slots.second);
     j->sopt.second.append(" -l vf=" + j->memory.second);
@@ -99,10 +99,8 @@ void GenJob::genAlignJob(Job* j){
 void GenJob::genMkdupJob(Job* j){
     j->cmd.second += mOpt->ioOpt.bin_dir + "/duplexer markdup";
     j->cmd.second += " -i " + bam;
-    j->cmd.second += " -o " + j->workdir.second + "/" + j->pre + ".mkdup.bam";
     j->cmd.second += " -l " + j->workdir.second + "/" + j->pre + ".mkdup.json";
-    j->cmd.second += " && " + mOpt->ioOpt.bin_dir + "/samtools sort -@ 8 -o " + j->workdir.second + j->pre + ".mkdup.sort.bam";
-    j->cmd.second += " " + j->workdir.second + j->pre + ".mkdup.bam";
+    j->cmd.second += " | " + mOpt->ioOpt.bin_dir + "/samtools sort -@ 8 -o " + j->workdir.second + j->pre + ".mkdup.sort.bam";
     j->cmd.second += " && " + mOpt->ioOpt.bin_dir + "/samtools index ";
     j->cmd.second += j->workdir.second + j->pre + ".mkdup.sort.bam";
     j->memory.second = "3g";
@@ -119,6 +117,8 @@ void GenJob::genBamqcJob(Job* j){
     j->cmd.second += " -b " + mOpt->clOpt.reg;
     j->cmd.second += " -r " + mOpt->clOpt.ref;
     j->cmd.second += " -o " + j->workdir.second + "/" + j->pre + ".bamqc.json";
+    j->cmd.second += " -I --reg " + mOpt->clOpt.reg;
+    j->cmd.second += " -U -l " + mOpt->ioOpt.db_dir + "/refMrna/refGene.3utr.len";
     j->memory.second = "1g";
     j->slots.second = "4";
     j->sopt.second.append(" -l p=" + j->slots.second);
