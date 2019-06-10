@@ -83,13 +83,9 @@ void GenJob::genFilterJob(Job* j){
 
 void GenJob::genAlignJob(Job* j){
     j->cmd.second += mOpt->ioOpt.bin_dir + "/bwa mem";
-    j->cmd.second += " -C -t 8 " + mOpt->clOpt.ref + " " + lib1 + " " + lib2;
-    j->cmd.second += " | " + mOpt->ioOpt.bin_dir + "/samtools view -@ 8";
-    j->cmd.second += " -o " + j->workdir.second + j->pre + ".aln.bam";
-    j->cmd.second += " && rm -rf " + j->workdir.second + j->pre + ".aln.sort.bam*";
-    j->cmd.second += " && " + mOpt->ioOpt.bin_dir + "/samtools sort -@ 8";
+    j->cmd.second += " -t 8 " + mOpt->clOpt.ref + " " + lib1 + " " + lib2;
+    j->cmd.second += " | " + mOpt->ioOpt.bin_dir + "/samtools sort -@ 8";
     j->cmd.second += " -o " + j->workdir.second + j->pre + ".aln.sort.bam";
-    j->cmd.second += " " + j->workdir.second + j->pre + ".aln.bam";
     j->cmd.second += " && " + mOpt->ioOpt.bin_dir + "/samtools index ";
     j->cmd.second += j->workdir.second + j->pre + ".aln.sort.bam";
     j->memory.second = "16g";
