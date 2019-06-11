@@ -37,7 +37,7 @@ Installation
 `/path/to/install/dir/bin/anapipe`  
 
 PS  
-this is a sjm based fusion pipeline  
+this is a sjm based analysis pipeline  
 
 |Marker|Analysis         |Software |Version
 |------|-----------------|---------|----------- 
