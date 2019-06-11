@@ -139,6 +139,21 @@ void GenJob::genExpressJob(Job* j){
     if(mOpt->clOpt.local){j->host.second = "localhost";}
 }
 
+void GenJob::genReportJob(Job* j){
+    std::string filtlog = mOpt->ioOpt.fil_dir + "/" + j->pre + ".filter.json";
+    std::string bamqc = mOpt->ioOpt.bqc_dir + "/" + j->pre + ".bamqc.json";
+    std::string abundance = mOpt->ioOpt.exp_dir + "/" + j->pre + "/abundance.tsv";
+    std::string ens2gen = mOpt->ioOpt.db_dir + "/NCBI/ensebml2genename";
+    std::string outf = mOpt->ioOpt.rep_dir + "/" + j->pre + ".report.xlsx";
+    j->cmd.second = mOpt->ioOpt.bin_dir + "/anarpt";
+    j->cmd.second += " -f " + filtlog + " -b " + bamqc + " -k " + abundance + " -e " + ens2gen + " -o " + outf;
+    j->memory.second = "1g";
+    j->slots.second = "1";
+    j->sopt.second.append(" -l p=" + j->slots.second);
+    j->sopt.second.append(" -l vf=" + j->memory.second);
+    if(mOpt->clOpt.local){j->host.second = "localhost";}
+}
+
 void GenJob::genCleanupJob(Job* j){
     j->cmd.second = "rm -f ";
     j->cmd.second += mOpt->ioOpt.cut_dir + "/" + j->pre + "*.fq ";

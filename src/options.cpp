@@ -95,6 +95,7 @@ void Options::showMark(){
     stg.push_back({"markdup",           "duplexer"});
     stg.push_back({"bam QC",            "bamqc"});
     stg.push_back({"express quant",     "kallisto"});
+    stg.push_back({"report",            "anarpt"});
     stg.push_back({"cleanup",           "rm"});
     
     std::map<std::string, std::string> sver;
@@ -105,6 +106,7 @@ void Options::showMark(){
     sver["duplexer"]   = "0.0.0";
     sver["bamqc"]      = "0.0.0";
     sver["kallisto"]   = "0.45.1";
+    sver["anarpt"]     = "0.0.0";
     sver["rm"]         = "8.4";
     
     std::cout << std::left;

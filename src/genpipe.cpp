@@ -56,11 +56,15 @@ void GenPipe::genAnalibTask(){
         genJob->setLib(jSeqtk->o1, jSeqtk->o2);
         genJob->genExpressJob(jExpress);
         task->addJob(jExpress, 3);
+        // report
+        Job* jReport = new Job("anarpt", mOpt->ioOpt.rep_dir, libName, 8);
+        genJob->genReportJob(jReport);
+        task->addJob(jReport, 6);
         // cleanup
         if(!mOpt->clOpt.noclean){
-            Job* jClean = new Job("cleanup", mOpt->ioOpt.log_dir, libName, 8);
+            Job* jClean = new Job("cleanup", mOpt->ioOpt.log_dir, libName, 9);
             genJob->genCleanupJob(jClean);
-            task->addJob(jClean, 6);
+            task->addJob(jClean, 7);
         }
         // updating status
         std::string sjmStatus = mOpt->ioOpt.sjm_dir + "/" + libName + "_analib.sjm.status";

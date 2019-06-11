@@ -67,7 +67,7 @@ class PipeControlOptions{
 
     PipeControlOptions(){
         minstage = 1;
-        maxstage = 8;
+        maxstage = 9;
         sample_list = "";
         ref = "";
         reg = "";
@@ -75,7 +75,7 @@ class PipeControlOptions{
         queue = "";
         ana_marker = {};
         ini_marker = 1;
-        end_marker = 11;
+        end_marker = 9;
         dfq_vol = "VOL";
         rerun = false;
         local = false;
