@@ -24,10 +24,10 @@ Usage: anapipe [OPTIONS]
 Installation
 
 1. clone repo  
-`git clone https://github.com/vanNul/pipe`
+`git clone https://github.com/vanNul/anapipe.git`
 
 2. compile  
-`cd pipe`  
+`cd anapipe`  
 `./autogen.sh`  
 `./configure --prefix=/path/to/install/dir/`  
 `make`  
