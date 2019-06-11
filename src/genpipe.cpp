@@ -19,7 +19,7 @@ void GenPipe::genAnalibTask(){
         iss.str(tmpStr);
         iss >> sampleNo >> flowCell >> libName >> read1 >> read2;
         GenJob* genJob = new GenJob(mOpt);
-        Task* task = new Task(7);
+        Task* task = new Task(8);
         // fqtool
         Job* jFqtool = new Job("fqtool", mOpt->ioOpt.cut_dir, libName, 1);
         genJob->setLib(read1, read2);
