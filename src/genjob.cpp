@@ -21,7 +21,7 @@ void GenJob::genFqtoolJob(Job* j){
     std::string ofq1 = j->workdir.second + j->pre + ".R1.fq";
     std::string ofq2 = j->workdir.second + j->pre + ".R2.fq";
     j->cmd.second += mOpt->ioOpt.bin_dir + "/fqtool";
-    j->cmd.second += " -q -a -x";
+    j->cmd.second += " -q -a -x -d";
     j->cmd.second += " -i " + lib1 + " -I " + lib2;
     j->cmd.second += " -o " + ofq1;
     j->cmd.second += " -O " + ofq2;
