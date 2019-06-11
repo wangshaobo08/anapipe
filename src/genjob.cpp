@@ -117,7 +117,7 @@ void GenJob::genBamqcJob(Job* j){
     j->cmd.second += " -b " + mOpt->clOpt.reg;
     j->cmd.second += " -r " + mOpt->clOpt.ref;
     j->cmd.second += " -o " + j->workdir.second + "/" + j->pre + ".bamqc.json";
-    j->cmd.second += " -I --reg " + mOpt->clOpt.reg;
+    j->cmd.second += " -I --reg " + mOpt->ioOpt.db_dir + "/regfile/refMrna.CDS.bed";
     j->cmd.second += " -U -l " + mOpt->ioOpt.db_dir + "/refMrna/refGene.3utr.len";
     j->memory.second = "1g";
     j->slots.second = "4";
