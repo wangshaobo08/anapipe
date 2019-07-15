@@ -56,7 +56,7 @@ void Pipeline::prepareRerun(){
 int Pipeline::runPipeline(){
     std::vector<std::future<int>> fv;
     for(size_t i = 0; i < pipelist.size(); ++i){
-        fv.push_back(std::async(std::launch::async, &Pipeline::runStage, this, i));
+        fv.push_back(std::async(std::launch::deferred, &Pipeline::runStage, this, i));
     }
     for(auto& e: fv){
         retValue += std::abs(e.get());
