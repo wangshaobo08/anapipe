@@ -2,13 +2,10 @@
 #include <fstream>
 #include "pipeline.h"
 
-Pipeline::Pipeline(int n, int s, const std::string& fmkf, const std::string& smkf){
+Pipeline::Pipeline(int n, const std::string& fmkf, const std::string& smkf){
     goodMarkFile = smkf;
     failMarkFile = fmkf;
     pipelist.resize(n);
-    for(size_t i = 0; i < pipelist.size(); ++i){
-        pipelist[i].resize(s);
-    }
 }
 
 Pipeline::~Pipeline(){
@@ -22,8 +19,8 @@ Pipeline::~Pipeline(){
     }
 }
 
-void Pipeline::addRunFile(RunTask* r, int s, int t){
-    pipelist[s][t] = r;
+void Pipeline::addRunFile(RunTask* r, int s){
+    pipelist[s].push_back(r);
 }
 
 void Pipeline::prepareRerun(){

@@ -13,7 +13,6 @@ void GenPipe::genAnalibTask(){
     std::string sampleNo, flowCell, libName, read1, read2, tmpStr;
     std::getline(fr1, tmpStr);
     std::istringstream iss;
-    int count = 0;
     while(std::getline(fr1, tmpStr)){
         iss.clear();
         iss.str(tmpStr);
@@ -90,10 +89,9 @@ void GenPipe::genAnalibTask(){
         runTask->goodMarkFile = mOpt->ioOpt.log_dir + "/" + libName + ".Analysis.SUCCESS";
         runTask->failMarkFile = mOpt->ioOpt.log_dir + "/" + libName + ".Analysis.FAIL";
         runTask->logFile = sjmLog;
-        mPipe->addRunFile(runTask, 0, count);
+        mPipe->addRunFile(runTask, 0);
         std::ofstream fw(sjmFile);
         fw << task;
         fw.close();
-        ++count;
     }
 }

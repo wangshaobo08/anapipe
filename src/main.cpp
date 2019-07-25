@@ -16,8 +16,8 @@
 int main(int argc, char** argv)
 {
     Options* opt = new Options();
-    std::string sys_cmd = std::string(argv[0]) + " -h";
     if(argc == 1){
+    std::string sys_cmd = std::string(argv[0]) + " -h";
         std::system(sys_cmd.c_str());
         return 0;
     }
@@ -57,8 +57,7 @@ int main(int argc, char** argv)
     util::loginfo("updating arguments.", logmtx);
     opt->updateOptions();
     util::loginfo("arguments updated.", logmtx);
-    util::loginfo("construct pipeline object with #stage(" + std::to_string(opt->nSubPipe) + "), #sample(" + std::to_string(opt->nSamples), logmtx);
-    Pipeline* p = new Pipeline(opt->nSubPipe, opt->nSamples, opt->failMarkFile, opt->goodMarkFile);
+    Pipeline* p = new Pipeline(opt->nSubPipe, opt->failMarkFile, opt->goodMarkFile);
     util::loginfo("pipeline object construced.", logmtx);
     util::loginfo("generate subdirectories.", logmtx);
     opt->genDirectory();

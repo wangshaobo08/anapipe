@@ -29,11 +29,10 @@ class Pipeline{
 
         /** construct a Pipeline which have n stages
          * @param n stages of Pipeline
-         * @param s substages of each subpipeline
          * @param fmkf fail marker file of Pipeline
          * @param smkf success marker file of Pipeline
          */
-        Pipeline(int n, int s, const std::string& fmkf, const std::string& smkf);
+        Pipeline(int n, const std::string& fmkf, const std::string& smkf);
 
         /** destroy Pipeline */
         ~Pipeline();
@@ -41,9 +40,8 @@ class Pipeline{
         /** add a RunTask to pipeline
          * @param r pointer to a RunTask
          * @param s stage number of pipeline to add this RunTask to
-         * @param t substage number of pipeline to add this RunTask to
          */
-        void addRunFile(RunTask* r, int s, int t);
+        void addRunFile(RunTask* r, int s);
 
         /** prepare Pipeline to resume running from last failure */
         void prepareRerun();
