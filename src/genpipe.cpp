@@ -90,10 +90,10 @@ void GenPipe::genAnalibTask(){
         runTask->goodMarkFile = mOpt->ioOpt.log_dir + "/" + libName + ".Analysis.SUCCESS";
         runTask->failMarkFile = mOpt->ioOpt.log_dir + "/" + libName + ".Analysis.FAIL";
         runTask->logFile = sjmLog;
-        mPipe->addRunFile(runTask, count, 0);
+        mPipe->addRunFile(runTask, 0, count);
         std::ofstream fw(sjmFile);
         fw << task;
         fw.close();
+        ++count;
     }
-    ++count;
 }

@@ -17,13 +17,11 @@ struct RunTask{
 /** Pipeline class hold a series of Tasks */
 class Pipeline{
     public:
-        std::vector<std::vector<std::vector<RunTask*>>> pipelist; ///< stages in pipeline[i] will execute before pipeline[i+1]\n
-                                                                  ///< tasks in pipeline[i][j] will execute before pipeline[i][j+1]\n
-                                                                  ///< all tasks in pipelist[i][j] will execute parallely 
-        std::string failMarkFile;                                 ///< file to touch if this pipeline failed
-        std::string goodMarkFile;                                 ///< file to touch if this pipeline succeeded
-        int retValue = 0;                                         ///< return value of this pipeline
-        bool forceUpdateSJM = false;                              ///< force update sjm file of Task if true
+        std::vector<std::vector<RunTask*>> pipelist; ///< tasks in pipeline[i] will execute parallely, and will be excecuted before pipeline[i+1]
+        std::string failMarkFile;                    ///< file to touch if this pipeline failed
+        std::string goodMarkFile;                    ///< file to touch if this pipeline succeeded
+        int retValue = 0;                            ///< return value of this pipeline
+        bool forceUpdateSJM = false;                 ///< force update sjm file of Task if true
 
     public:
         /** default constructor of Pipeline */

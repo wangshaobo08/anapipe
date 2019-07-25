@@ -45,7 +45,7 @@ void Options::updateOptions(){
     while(std::getline(fr, line)){
         ++count;
     }
-    nSamples = count;
+    nSamples = count - 1;
     goodMarkFile = ioOpt.log_dir + "/SUCCESS";
     failMarkFile = ioOpt.log_dir + "/FAIL";
     if(clOpt.dfq_vol == "0"){
@@ -61,6 +61,7 @@ void Options::updateMinFqVolMap(){
     std::ifstream fr(clOpt.sample_list);
     std::string line, logfile;
     std::vector<std::string> vstr;
+    std::getline(fr, line);
     while(std::getline(fr, line)){
         util::split(line, vstr, "\t");
         logfile = util::joinpath(ioOpt.fil_dir, vstr[2] + ".filter.json");

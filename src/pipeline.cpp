@@ -14,39 +14,35 @@ Pipeline::Pipeline(int n, int s, const std::string& fmkf, const std::string& smk
 Pipeline::~Pipeline(){
     for(auto& e: pipelist){
         for(auto& f: e){
-            for(auto& g: f){
-                if(g){
-                    delete g;
-                    g = NULL;
-                }
+            if(f){
+                delete f;
+                f = NULL;
             }
         }
     }
 }
 
 void Pipeline::addRunFile(RunTask* r, int s, int t){
-    pipelist[s][t].push_back(r);
+    pipelist[s][t] = r;
 }
 
 void Pipeline::prepareRerun(){
     std::string oriSJM, newSJM, bakSJM;
     for(auto& e: pipelist){
         for(auto& f: e){
-            for(auto& g: f){
-                remove(g->failMarkFile.c_str());
-                remove(g->goodMarkFile.c_str());
-                remove(g->logFile.c_str());
-                auto p = g->sjmCMD.find_last_of(" ");
-                oriSJM = g->sjmCMD.substr(p + 1);
-                newSJM = oriSJM + ".status";
-                bakSJM = newSJM + ".bak";
-                remove(bakSJM.c_str());
-                std::ifstream fr(newSJM);
-                if(fr.is_open()){
-                    fr.close();
-                    if(!forceUpdateSJM){
-                        std::rename(newSJM.c_str(), oriSJM.c_str());
-                    }
+            remove(f->failMarkFile.c_str());
+            remove(f->goodMarkFile.c_str());
+            remove(f->logFile.c_str());
+            auto p = f->sjmCMD.find_last_of(" ");
+            oriSJM = f->sjmCMD.substr(p + 1);
+            newSJM = oriSJM + ".status";
+            bakSJM = newSJM + ".bak";
+            remove(bakSJM.c_str());
+            std::ifstream fr(newSJM);
+            if(fr.is_open()){
+                fr.close();
+                if(!forceUpdateSJM){
+                    std::rename(newSJM.c_str(), oriSJM.c_str());
                 }
             }
         }
@@ -54,9 +50,9 @@ void Pipeline::prepareRerun(){
 }
 
 int Pipeline::runPipeline(){
-    std::vector<std::future<int>> fv;
-    for(size_t i = 0; i < pipelist.size(); ++i){
-        fv.push_back(std::async(std::launch::deferred, &Pipeline::runStage, this, i));
+    std::vector<std::future<int>> fv(pipelist.size());
+    for(size_t s = 0; s < pipelist.size(); ++s){
+        fv[s] = std::async(std::launch::deferred, &Pipeline::runStage, this, s);
     }
     for(auto& e: fv){
         retValue += std::abs(e.get());
@@ -75,30 +71,26 @@ int Pipeline::runPipeline(){
 
 int Pipeline::runStage(int s){
     int ret = 0;
-    std::vector<std::future<int>> fv;
-    for(size_t i = 0; i < pipelist[s].size(); ++i){
-        fv.clear();
-        for(size_t j = 0; j < pipelist[s][i].size(); ++j){
-            fv.push_back(std::async(std::launch::async, &Pipeline::runTask, this, std::ref(pipelist[s][i][j])));
-        }
-        for(size_t k = 0; k < fv.size(); ++k){
-            pipelist[s][i][k]->retValue = fv[k].get();
-            if(pipelist[s][i][k]->retValue){
-                remove(pipelist[s][i][k]->goodMarkFile.c_str());
-                std::ofstream fw(pipelist[s][i][k]->failMarkFile);
-                fw.close();
-                ret = 1;
-            }else{
-                remove(pipelist[s][i][k]->failMarkFile.c_str());
-                std::ofstream fw(pipelist[s][i][k]->goodMarkFile);
-                fw.close();
-            }
+    std::vector<std::future<int>> fv(pipelist[s].size());
+    for(size_t t = 0; t < pipelist[s].size(); ++t){
+        fv[t] = std::async(std::launch::async, &Pipeline::runTask, this, std::ref(pipelist[s][t]));
+    }
+    for(size_t t = 0; t < fv.size(); ++t){
+        pipelist[s][t]->retValue = fv[t].get();
+        if(pipelist[s][t]->retValue){
+            remove(pipelist[s][t]->goodMarkFile.c_str());
+            std::ofstream fw(pipelist[s][t]->failMarkFile);
+            fw.close();
+            ret = 1;
+        }else{
+            remove(pipelist[s][t]->failMarkFile.c_str());
+            std::ofstream fw(pipelist[s][t]->goodMarkFile);
+            fw.close();
         }
     }
     return ret;
 }
 
 int Pipeline::runTask(RunTask* r){
-    int ret = std::system(r->sjmCMD.c_str());
-    return ret;
+    return std::system(r->sjmCMD.c_str());
 }

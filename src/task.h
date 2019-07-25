@@ -10,7 +10,7 @@
 /** Task class to hold a series of jobs in the order they are executed */
 class Task{
     public:
-        std::vector<std::vector<Job*>> joblist;   ///< jobs in joblist[i] will execute before joblist[i+1], jobs in each joblist[i] execute parallely
+        std::vector<std::vector<Job*>> joblist;                       ///< jobs in joblist[i] will execute before joblist[i+1], jobs in each joblist[i] execute parallely
         std::pair<std::string, std::string> logdir = {"log_dir", ""}; ///< logging directory of this task
 
     public:
