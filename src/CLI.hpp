@@ -4600,7 +4600,7 @@ inline std::string Formatter::make_option_opts(const Option *opt) const {
         if(opt->get_expected() > 1)
             out << " x " << opt->get_expected();
         if(opt->get_expected() == -1)
-            out << " ...";
+            out << " ";
         if(opt->get_required())
             out << " " << get_label("REQUIRED");
     }

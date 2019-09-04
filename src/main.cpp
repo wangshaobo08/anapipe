@@ -44,6 +44,7 @@ int main(int argc, char** argv)
     app.add_flag("-g,--gen", opt->clOpt.gensjm, "generate sjms, not run tasks");
     app.add_flag("-u,--update", opt->clOpt.update, "update command to execute")->needs(prerun);
     app.add_flag("-n,--noclean", opt->clOpt.noclean, "not cleanup intermediate files");
+    app.add_option("--retryn", opt->clOpt.trynum, "# of retries after failure of one job", true)->check(CLI::Range(0, 5));
     CLI_PARSE(app, argc, argv);
     util::loginfo("parsing arguments finished.", logmtx);
     std::string cmd = "";
@@ -57,7 +58,7 @@ int main(int argc, char** argv)
     util::loginfo("updating arguments.", logmtx);
     opt->updateOptions();
     util::loginfo("arguments updated.", logmtx);
-    Pipeline* p = new Pipeline(opt->nSubPipe, opt->failMarkFile, opt->goodMarkFile);
+    Pipeline* p = new Pipeline(opt->nSubPipe, opt->failMarkFile, opt->goodMarkFile, opt->clOpt.trynum);
     util::loginfo("pipeline object construced.", logmtx);
     util::loginfo("generate subdirectories.", logmtx);
     opt->genDirectory();

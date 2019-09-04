@@ -22,6 +22,7 @@ class Pipeline{
         std::string goodMarkFile;                    ///< file to touch if this pipeline succeeded
         int retValue = 0;                            ///< return value of this pipeline
         bool forceUpdateSJM = false;                 ///< force update sjm file of Task if true
+        int retryNum = 1;                            ///< number of retries to do after failure
 
     public:
         /** default constructor of Pipeline */
@@ -31,8 +32,9 @@ class Pipeline{
          * @param n stages of Pipeline
          * @param fmkf fail marker file of Pipeline
          * @param smkf success marker file of Pipeline
+         * @param tryn number of retries to do after failing of one job
          */
-        Pipeline(int n, const std::string& fmkf, const std::string& smkf);
+        Pipeline(int n, const std::string& fmkf, const std::string& smkf, const int32_t tryn = 1);
 
         /** destroy Pipeline */
         ~Pipeline();

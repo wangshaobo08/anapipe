@@ -2,10 +2,11 @@
 #include <fstream>
 #include "pipeline.h"
 
-Pipeline::Pipeline(int n, const std::string& fmkf, const std::string& smkf){
+Pipeline::Pipeline(int n, const std::string& fmkf, const std::string& smkf, const int32_t tryn){
     goodMarkFile = smkf;
     failMarkFile = fmkf;
     pipelist.resize(n);
+    retryNum = tryn;
 }
 
 Pipeline::~Pipeline(){
@@ -89,5 +90,10 @@ int Pipeline::runStage(int s){
 }
 
 int Pipeline::runTask(RunTask* r){
-    return std::system(r->sjmCMD.c_str());
+    for(int i = 0; i <= retryNum; ++i){
+        if(!std::system(r->sjmCMD.c_str())){
+            return 0;
+        }
+    }
+    return 1;
 }

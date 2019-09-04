@@ -64,6 +64,7 @@ class PipeControlOptions{
         bool gensjm;                 ///< only generate sjm control files without running pipeline if true
         bool update;                 ///< update sjm control file before running pipeline if true
         bool noclean;                ///< do not cleanup intermediate files after running pipeline if true
+        int trynum;                  ///< # of retries after failure of one task
 
     PipeControlOptions(){
         minstage = 1;
@@ -82,6 +83,7 @@ class PipeControlOptions{
         gensjm = false;
         update = false;
         noclean = false;
+        trynum = 1;
     }
 };
 
