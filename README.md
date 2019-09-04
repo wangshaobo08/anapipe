@@ -21,7 +21,9 @@ Usage: anapipe [OPTIONS]
 |  -g,--gen                   | generate sjms, not run tasks
 |  -u,--update Needs: --ctd   | update command to execute
 |  -n,--noclean               | not cleanup intermediate files
-|  --retryn INT in [0 - 5]=1  | # of retries after failure of one job
+|  --retryn INT in [0 - 5]=1  | # of retries after failure of one job  
+
+
 Installation
 
 1. clone repo  
