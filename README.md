@@ -1,6 +1,6 @@
 program: anapipe  
 version: 0.0.0  
-updated: 15:28:35 Jun  4 2019  
+updated: 09:39:19 Sep  4 2019  
 Usage: anapipe [OPTIONS]  
 
 |  Options                    | Explanations
@@ -12,15 +12,16 @@ Usage: anapipe [OPTIONS]
 |  -t,--gset FILE             | gene list
 |  -v,--vread TEXT            | fastq  subset reads number
 |  -o,--out TEXT              | output directory
-|  -a,--amark INT in [1 - 9] | analysis marker range
-|  -i,--imark INT in [1 - 9] | initial analysis marker
-|  -e,--emark INT in [1 - 9] | end analysis marker
+|  -a,--amark INT in [1 - 9]  | analysis marker range
+|  -i,--imark INT in [1 - 9]  | initial analysis marker
+|  -e,--emark INT in [1 - 9]  | end analysis marker
 |  -q,--queue TEXT            | queue to run tasks
 |  -c,--ctd                   | continue from last failure
 |  -l,--loc                   | run in localhost
 |  -g,--gen                   | generate sjms, not run tasks
 |  -u,--update Needs: --ctd   | update command to execute
 |  -n,--noclean               | not cleanup intermediate files
+|  --retryn INT in [0 - 5]=1  | # of retries after failure of one job
 Installation
 
 1. clone repo  
