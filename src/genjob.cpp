@@ -167,13 +167,13 @@ void GenJob::genReportJob(Job* j){
 }
 
 void GenJob::genCleanupJob(Job* j){
+    std::string cutfq = mOpt->ioOpt.cut_dir + "/" + j->pre + "*.fq.gz";
+    std::string filfq = mOpt->ioOpt.fil_dir + "/" + j->pre + "*.fq.gz";
+    std::string alnbam = mOpt->ioOpt.aln_dir + "/" + j->pre + "*.aln.bam";
+    std::string mkdbam = mOpt->ioOpt.mkd_dir + "/" + j->pre + "*.mkdup.bam";
     j->cmd.second = "rm -f ";
-    j->cmd.second += mOpt->ioOpt.cut_dir + "/" + j->pre + "*.fq ";
-    if(mOpt->clOpt.dfq_vol != "VOL"){
-        j->cmd.second += mOpt->ioOpt.fil_dir + "/" + j->pre + "*.fq ";
-    }
-    j->cmd.second += mOpt->ioOpt.aln_dir + "/" + j->pre + "*.aln.bam ";
-    j->cmd.second += mOpt->ioOpt.mkd_dir + "/" + j->pre + "*.mkdup.bam ";
+    j->cmd.second += cutfq + " " + alnbam + " " + mkdbam;
+    if(mOpt->clOpt.dfq_vol != "VOL") j->cmd.second += " " + filfq;
     j->memory.second = "1g";
     j->slots.second = "1";
     j->sopt.second.append(" -l p=" + j->slots.second);
