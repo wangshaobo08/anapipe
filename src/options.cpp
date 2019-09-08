@@ -25,7 +25,7 @@ void Options::updateOptions(){
 
     ioOpt.bin_dir = util::dirname(dirutil::getExecutablePath());
     ioOpt.out_dir = util::abspath(ioOpt.out_dir);
-    ioOpt.db_dir = util::dirname(ioOpt.bin_dir) + "/db/";
+    ioOpt.db_dir = util::dirname(ioOpt.bin_dir) + "/db";
     
     std::string sep = "/";
     ioOpt.sjm_dir = ioOpt.out_dir + sep + ioOpt.sjm_dir;
