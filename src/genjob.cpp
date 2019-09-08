@@ -39,10 +39,8 @@ void GenJob::genFqtoolJob(Job* j){
 }
 
 void GenJob::genSeqtkJob(Job* j){
-    std::string bnlib1 = util::basename(lib1);
-    std::string bnlib2 = util::basename(lib2);
-    std::string ofq1 = j->workdir.second + bnlib1;
-    std::string ofq2 = j->workdir.second + bnlib2;
+    std::string ofq1 = j->workdir.second + util::basename(lib1);
+    std::string ofq2 = j->workdir.second + util::basename(lib2);
     j->cmd.second = "rm -f " + ofq1;
     j->cmd.second += " && rm -f " + ofq2;
     j->cmd.second += " && ln -sf " + lib1 + " " + j->workdir.second;
@@ -70,9 +68,9 @@ void GenJob::genSeqtkJob(Job* j){
 
 void GenJob::genFilterJob(Job* j){
     std::string ncrf = mOpt->ioOpt.db_dir + "/ncrna/Homo_sapiens.GRCh37.ncrna.class.fa";
-    std::string ofq1 = j->workdir.second + "/" + util::basename(lib1);
-    std::string ofq2 = j->workdir.second + "/" + util::basename(lib2);
-    std::string jrpt = j->workdir.second + "/" + j->pre + ".filter.json";
+    std::string ofq1 = j->workdir.second + util::basename(lib1);
+    std::string ofq2 = j->workdir.second + util::basename(lib2);
+    std::string jrpt = j->workdir.second + j->pre + ".filter.json";
     j->cmd.second += mOpt->ioOpt.bin_dir + "/filter -d";
     j->cmd.second += " -i " + lib1;
     j->cmd.second += " -I " + lib2;
