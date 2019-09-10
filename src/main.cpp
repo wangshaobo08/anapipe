@@ -69,6 +69,7 @@ int main(int argc, char** argv)
     util::loginfo("library analysis pipeline generated.", logmtx);
     if(opt->clOpt.rerun){
         util::loginfo("resume last running of pipeline started.", logmtx);
+        p->forceUpdateSJM = opt->clOpt.update;
         p->prepareRerun();
         util::loginfo("finished resume running.", logmtx);
     }
