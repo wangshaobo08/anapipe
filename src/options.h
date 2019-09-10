@@ -83,7 +83,7 @@ class PipeControlOptions{
         gensjm = false;
         update = false;
         noclean = false;
-        trynum = 1;
+        trynum = 0;
     }
 };
 
